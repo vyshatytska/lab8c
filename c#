@@ -1,0 +1,221 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab8
+{
+    /*Створити клас рідина, що має назву(вказівник на рядок), густину.Визначити
+ конструктори, деструктор і функцію виведення даних.Створити public-похідні класи
+– гарячі напої, які мають тип, та холодні напої, що мають температуру зберігання.
+Визначити конструктори за умовчанням і з різним числом параметрів, деструктори,
+функцію виведення.Визначити функції перепризначення густини*/
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Liquid a = new Liquid();
+            Console.WriteLine("Drink a: " + a.ToString());
+            Console.WriteLine("-------------------------");
+            Hot_drinks b = new Hot_drinks(3,  "spurtne");
+            Console.WriteLine("Hot_drinks b: " + b.ToString());
+            Console.WriteLine("Hot_drinks b (Change): ");
+            b.Read();
+            Console.WriteLine("Hot_drinks b (Changed): " + b.ToString());
+            Console.WriteLine("-------------------------");
+            Cold_drinks c = new Cold_drinks(2, 'c');
+            Console.WriteLine("Geometrical_Dot c: " + c.ToString());
+            Console.WriteLine("-------------------------");
+            Console.ReadKey();
+        }
+    }
+
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab8
+{
+    /*Створити клас рідина, що має назву(вказівник на рядок), густину.Визначити
+ конструктори, деструктор і функцію виведення даних.Створити public-похідні класи
+– гарячі напої, які мають тип, та холодні напої, що мають температуру зберігання.
+Визначити конструктори за умовчанням і з різним числом параметрів, деструктори,
+функцію виведення.Визначити функції перепризначення густини*/
+    class Liquid
+    {
+            private int density; //густинa
+
+        public Liquid()
+            {
+                this.density = 0;
+            }
+            public Liquid(int density)
+            {
+                this.density = density;
+            }
+            public Liquid(Liquid p)
+            {
+                this.density = p.density;
+            }
+            public int GetDensity()
+            {
+                return this.density;
+            }
+            public void SetDensity(int value)
+            {
+                this.density = value;
+            }
+            ~Liquid()
+            {
+                Console.WriteLine("Destructor Was Called");
+            }
+            public void Read()
+            {
+                Console.WriteLine("denisty: ");
+                this.density = Convert.ToInt32(Console.ReadLine());
+            }
+            public override string ToString()
+            {
+                return "Liquid[" + "density: " + this.density + "]";
+            }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab8
+{
+    public class Hot_drinks : Liquid
+    {
+            private string tup;
+            public Hot_drinks()
+            {
+                this.SetDensity(0);
+                this.tup = "";
+            }
+            public Hot_drinks(int density, string tup)
+            {
+                this.SetDensity(density);
+                this.tup = tup;
+            }
+            
+            public Hot_drinks(string tup)
+            {
+                this.SetDensity(0);
+                this.tup = tup;
+            }
+            public Hot_drinks(int density)
+            {
+                this.SetDensity(density);
+                this.tup = "";
+            }
+            public Hot_drinks(Hot_drinks c_d)
+            {
+                this.SetDensity(c_d.GetDensity());
+                this.tup = c_d.tup;
+            }
+            public string GetTup()
+            {
+                return this.tup;
+            }
+            public void SetTup(string value)
+            {
+                this.tup = value;
+            }
+            ~Hot_drinks()
+            {
+                Console.WriteLine("Destructor Was Called");
+            }
+            public void Read()
+            {
+                Console.WriteLine("liquid: ");
+                Console.WriteLine("density: ");
+                int density = Convert.ToInt32(Console.ReadLine());
+                this.SetDensity(density);
+                Console.WriteLine("tup: ");
+                this.tup = Console.ReadLine();
+            }
+            public override string ToString()
+            {
+                return "Color_Dot["  + "liquid: " + "[density: " + this.GetDensity() +
+                "]" + " tup: " + this.tup + "]";
+            }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab8
+{
+    public class Cold_drinks : Liquid
+    {
+        private int temp;
+        public Cold_drinks()
+        {
+            this.SetDensity(0);
+            this.temp = 0;
+        }
+        public Cold_drinks(int density, int temp)
+        {
+            this.SetDensity(density);
+            this.temp = temp;
+        }
+        public Cold_drinks(int temp)
+        {
+            this.SetDensity(0);
+            this.temp = temp;
+        }
+        /*public Geometrical_Dot(int x, int y)
+        {
+            this.SetX(x);
+            this.SetY(y);
+            this.name = ' ';
+        }*/
+        public Cold_drinks(Cold_drinks c_d)
+        {
+            this.SetDensity(c_d.GetDensity());
+            this.temp = temp;
+        }
+        public char GetTemp()
+        {
+            return (char)this.temp;
+        }
+        public void SetTemp(char value)
+        {
+            this.temp = value;
+        }
+        ~Cold_drinks()
+        {
+            Console.WriteLine("Destructor Was Called");
+        }
+        public void Read()
+        {
+            Console.WriteLine("liquid: ");
+            Console.WriteLine("density: ");
+            int density = Convert.ToInt32(Console.ReadLine());
+            this.SetDensity(density);
+            Console.WriteLine("temp: ");
+            this.temp = Convert.ToInt32(Console.ReadLine());
+        }
+        public override string ToString()
+        {
+            return "Cold_drinks[" + "liquid: " + "[density: " + this.GetDensity() 
+                + "]" + " temp: " + this.temp + "]";
+        }
+
+    }
+}
